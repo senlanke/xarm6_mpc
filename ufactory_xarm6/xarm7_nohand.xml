@@ -1,0 +1,106 @@
+<mujoco model="xarm7 nohand">  <!-- 定义MuJoCo模型，名称为"xarm7 nohand" -->
+  <compiler angle="radian" autolimits="true" meshdir="assets"/>  <!-- 编译器设置：使用弧度制，自动限制，网格文件目录为assets -->
+
+  <option integrator="implicitfast"/>  <!-- 仿真选项：使用implicitfast积分器 -->
+
+  <asset>  <!-- 资源定义部分 -->
+    <material name="white" rgba="1 1 1 1"/>  <!-- 定义白色材质，RGBA值为1 1 1 1（不透明白） -->
+    <material name="gray" rgba="0.753 0.753 0.753 1"/>  <!-- 定义灰色材质，RGBA值为0.753 0.753 0.753 1 ，第四个值为透明度-->
+
+    <mesh file="link_base.stl"/>  <!-- 导入基础链接的网格文件 -->
+    <mesh file="link1.stl"/>  <!-- 导入第一个关节链接的网格文件 -->
+    <mesh file="link2.stl"/>  <!-- 导入第二个关节链接的网格文件 -->
+    <mesh file="link3.stl"/>  <!-- 导入第三个关节链接的网格文件 -->
+    <mesh file="link4.stl"/>  <!-- 导入第四个关节链接的网格文件 -->
+    <mesh file="link5.stl"/>  <!-- 导入第五个关节链接的网格文件 -->
+    <mesh file="link6.stl"/>  <!-- 导入第六个关节链接的网格文件 -->
+    <mesh file="link7.stl"/>  <!-- 导入第七个关节链接的网格文件 -->
+    <mesh file="end_tool.stl"/>  <!-- 导入末端工具的网格文件 -->
+  </asset>
+
+  <default>  <!-- 默认属性定义部分 -->
+    <default class="xarm7">  <!-- 定义xarm7类的默认属性 -->
+      <geom type="mesh" material="white"/>  <!-- 几何体类型为网格，使用白色材质 -->
+      <joint axis="0 0 1" armature="0.1" range="-6.28319 6.28319" frictionloss="1"/>  <!-- 关节属性：Z轴旋转，转子惯性0.1，旋转范围±2π，摩擦损失1 在下面没有定义的时候就用默认的-->
+      <general biastype="affine" ctrlrange="-6.28319 6.28319"/>  <!-- 通用驱动器：仿射偏置类型，控制范围±2π -->
+      <default class="size1">  <!-- 定义size1子类默认属性 -->
+        <joint damping="10"/>  <!-- 关节阻尼为10 -->
+        <general gainprm="1500" biasprm="0 -1500 -150" forcerange="-50 50"/>  <!-- 通用驱动器参数：增益1500，偏置参数0 -1500 -150，力范围±50 -->
+      </default>
+      <default class="size2">  <!-- 定义size2子类默认属性 -->
+        <joint damping="5"/>  <!-- 关节阻尼为5 -->
+        <general gainprm="1000" biasprm="0 -1000 -100" forcerange="-30 30"/>  <!-- 通用驱动器参数：增益1000，偏置参数0 -1000 -100，力范围±30 -->
+      </default>
+      <default class="size3">  <!-- 定义size3子类默认属性 -->
+        <joint damping="2"/>  <!-- 关节阻尼为2 -->
+        <general gainprm="800" biasprm="0 -800 -80" forcerange="-20 20"/>  <!-- 通用驱动器参数：增益800，偏置参数0 -800 -80，力范围±20 -->
+      </default>
+      <site size="0.001" rgba="1 0 0 1" group="4"/>  <!-- 空间点属性：尺寸0.001，红色，组别4 -->
+    </default>
+  </default>
+
+  <worldbody>  <!-- 世界物体定义部分 -->
+    <body name="link_base" pos="0 0 .12" childclass="xarm7">  <!-- 基础链接：名称link_base，位置(0,0,0.12)，继承xarm7类属性 -->
+      <inertial pos="-0.021131 -0.0016302 0.056488" quat="0.696843 0.20176 0.10388 0.680376" mass="0.88556"
+        diaginertia="0.00382023 0.00335282 0.00167725"/>  <!-- 惯性属性：质心位置，四元数方向，质量0.88556，对角惯性矩 -->
+      <geom mesh="link_base"/>  <!-- 几何体：使用link_base网格 -->
+      <body name="link1" pos="0 0 0.267">  <!-- 第一个链接：名称link1，位置(0,0,0.267) -->
+        <inertial pos="-0.0002 0.02905 -0.01233" quat="0.978953 -0.202769 -0.00441617 -0.0227264" mass="2.382"
+          diaginertia="0.00569127 0.00533384 0.00293865"/>  <!-- 惯性属性：质心位置，四元数方向，质量2.382，对角惯性矩 -->
+        <joint name="joint1" class="size1"/>  <!-- 关节：名称joint1，使用size1类属性 -->
+        <geom mesh="link1"/>  <!-- 几何体：使用link1网格 -->
+        <body name="link2" quat="1 -1 0 0">  <!-- 第二个链接：名称link2，四元数方向(1,-1,0,0)表示旋转 -->
+          <inertial pos="0.00022 -0.12856 0.01735" quat="0.50198 0.86483 -0.00778841 0.00483285" mass="1.869"
+            diaginertia="0.00959898 0.00937717 0.00201315"/>  <!-- 惯性属性：质心位置，四元数方向，质量1.869，对角惯性矩 -->
+          <joint name="joint2" range="-2.059 2.0944" class="size1"/>  <!-- 关节：名称joint-2.02，范围59到2.0944，使用size1类属性 没有写pos就用body的-->
+          <geom mesh="link2"/>  <!-- 几何体：使用link2网格 -->
+          <body name="link3" pos="0 -0.293 0" quat="1 1 0 0">  <!-- 第三个链接：名称link3，位置(0,-0.293,0)，四元数方向(1,1,0,0) -->
+            <inertial pos="0.0466 -0.02463 -0.00768" quat="0.913819 0.289775 0.281481 -0.0416455" mass="1.6383"
+              diaginertia="0.00351721 0.00294089 0.00195868"/>  <!-- 惯性属性：质心位置，四元数方向，质量1.6383，对角惯性矩 -->
+            <joint name="joint3" class="size2"/>  <!-- 关节：名称joint3，使用size2类属性 -->
+            <geom mesh="link3"/>  <!-- 几何体：使用link3网格 -->
+            <body name="link4" pos="0.0525 0 0" quat="1 1 0 0">  <!-- 第四个链接：名称link4，位置(0.0525,0,0)，四元数方向(1,1,0,0) -->
+              <inertial pos="0.07047 -0.11575 0.012" quat="0.422108 0.852026 -0.126025 0.282832" mass="1.7269"
+                diaginertia="0.00657137 0.00647948 0.00186763"/>  <!-- 惯性属性：质心位置，四元数方向，质量1.7269，对角惯性矩 -->
+              <joint name="joint4" range="-0.19198 3.927" class="size2"/>  <!-- 关节：名称joint4，范围-0.19198到3.927，使用size2类属性 -->
+              <geom mesh="link4"/>  <!-- 几何体：使用link4网格 -->
+              <body name="link5" pos="0.0775 -0.3425 0" quat="1 1 0 0">  <!-- 第五个链接：名称link5，位置(0.0775,-0.3425,0)，四元数方向(1,1,0,0) -->
+                <inertial pos="-0.00032 0.01604 -0.026" quat="0.999311 -0.0304457 0.000577067 0.0212082" mass="1.3203"
+                  diaginertia="0.00534729 0.00499076 0.0013489"/>  <!-- 惯性属性：质心位置，四元数方向，质量1.3203，对角惯性矩 -->
+                <joint name="joint5" class="size2"/>  <!-- 关节：名称joint5，使用size2类属性 -->
+                <geom mesh="link5"/>  <!-- 几何体：使用link5网格 -->
+                <body name="link6" quat="1 1 0 0">  <!-- 第六个链接：名称link6，四元数方向(1,1,0,0) -->
+                  <inertial pos="0.06469 0.03278 0.02141" quat="-0.217672 0.772419 0.16258 0.574069" mass="1.325"
+                    diaginertia="0.00245421 0.00221646 0.00107273"/>  <!-- 惯性属性：质心位置，四元数方向，质量1.325，对角惯性矩 -->
+                  <joint name="joint6" range="-1.69297 3.14159" class="size3"/>  <!-- 关节：名称joint6，范围-1.69297到3.14159，使用size3类属性 -->
+                  <geom mesh="link6"/>  <!-- 几何体：使用link6网格 -->
+                  <body name="link7" pos="0.076 0.097 0" quat="1 -1 0 0">  <!-- 第七个链接：名称link7，位置(0.076,0.097,0)，四元数方向(1,-1,0,0) -->
+                    <inertial pos="0 -0.00677 -0.01098" quat="0.487612 0.512088 -0.512088 0.487612" mass="0.17"
+                      diaginertia="0.000132176 9.3e-05 5.85236e-05"/>  <!-- 惯性属性：质心位置，四元数方向，质量0.17，对角惯性矩 -->
+                    <joint name="joint7" class="size3"/>  <!-- 关节：名称joint7，使用size3类属性 -->
+                    <geom material="gray" mesh="end_tool"/>  <!-- 几何体：使用灰色材质和end_tool网格 -->
+                    <site name="attachment_site"/>  <!-- 空间点：名称attachment_site -->
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>  <!-- 驱动器定义部分 -->
+    <general name="act1" joint="joint1" class="size1"/>  <!-- 通用驱动器：名称act1，驱动joint1，使用size1类属性 -->
+    <general name="act2" joint="joint2" class="size1" ctrlrange="-2.059 2.0944"/>  <!-- 通用驱动器：名称act2，驱动joint2，使用size1类属性，控制范围-2.059到2.0944 -->
+    <general name="act3" joint="joint3" class="size2"/>  <!-- 通用驱动器：名称act3，驱动joint3，使用size2类属性 -->
+    <general name="act4" joint="joint4" class="size2" ctrlrange="-0.19198 3.927"/>  <!-- 通用驱动器：名称act4，驱动joint4，使用size2类属性，控制范围-0.19198到3.927 -->
+    <general name="act5" joint="joint5" class="size2"/>  <!-- 通用驱动器：名称act5，驱动joint5，使用size2类属性 -->
+    <general name="act6" joint="joint6" class="size3" ctrlrange="-1.69297 3.14159"/>  <!-- 通用驱动器：名称act6，驱动joint6，使用size3类属性，控制范围-1.69297到3.14159 -->
+    <general name="act7" joint="joint7" class="size3"/>  <!-- 通用驱动器：名称act7，驱动joint7，使用size3类属性 -->
+  </actuator>
+
+  <keyframe>  <!-- 关键帧定义部分 -->
+    <key name="home" qpos="0 -.247 0 .909 0 1.15644 0" ctrl="0 -.247 0 .909 0 1.15644 0"/>  <!-- 关键帧：名称home，关节位置[0,-0.247,0,0.909,0,1.15644,0]，控制值相同 -->
+  </keyframe>
+</mujoco>
