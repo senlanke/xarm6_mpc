@@ -4,7 +4,10 @@ import numpy as np
 import time
 import pathlib
 import yaml
-from .callbacks import Callbacks
+try:
+    from .callbacks import Callbacks
+except ImportError:
+    from callbacks import Callbacks
 
 MUJOCO_VERSION=tuple(map(int, mujoco.__version__.split('.')))
 
@@ -44,6 +47,8 @@ class MujocoViewer(Callbacks):
 
         if self.render_mode == 'offscreen':
             glfw.window_hint(glfw.VISIBLE, 0)
+        else:
+            glfw.window_hint(glfw.RESIZABLE, glfw.TRUE)
 
         self.window = glfw.create_window(
             width, height, title, None, None)
@@ -193,10 +198,12 @@ class MujocoViewer(Callbacks):
         g.objtype = mujoco.mjtObj.mjOBJ_UNKNOWN
         g.objid = -1
         g.category = mujoco.mjtCatBit.mjCAT_DECOR
-        g.texid = -1
-        g.texuniform = 0
-        g.texrepeat[0] = 1
-        g.texrepeat[1] = 1
+        if hasattr(g, "matid"):
+            g.matid = -1
+        if hasattr(g, "texcoord"):
+            g.texcoord = 0
+        if hasattr(g, "transparent"):
+            g.transparent = 0
         g.emission = 0
         g.specular = 0.5
         g.shininess = 0.5
@@ -205,19 +212,21 @@ class MujocoViewer(Callbacks):
         g.size[:] = np.ones(3) * 0.1
         g.mat[:] = np.eye(3)
         g.rgba[:] = np.ones(4)
+        g.label = ""
+
+        geom_enum_type = type(mujoco.mjtGeom.mjGEOM_BOX)
 
         for key, value in marker.items():
-            if isinstance(value, (int, float, mujoco._enums.mjtGeom)):
+            if isinstance(value, (int, float, np.integer, np.floating, geom_enum_type)):
                 setattr(g, key, value)
             elif isinstance(value, (tuple, list, np.ndarray)):
                 attr = getattr(g, key)
                 attr[:] = np.asarray(value).reshape(attr.shape)
             elif isinstance(value, str):
                 assert key == "label", "Only label is a string in mjtGeom."
-                if value is None:
-                    g.label[0] = 0
-                else:
-                    g.label = value
+                g.label = value
+            elif value is None and key == "label":
+                g.label = ""
             elif hasattr(g, key):
                 raise ValueError(
                     "mjtGeom has attr {} but type {} is invalid".format(

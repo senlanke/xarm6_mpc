@@ -17,19 +17,20 @@ def _prepare_runtime_env():
 
 _prepare_runtime_env()
 
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 import mujoco
 import mujoco_viewer
 import numpy as np
 import pinocchio as pin
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from mpc.solver.reach_ddp_xarm6 import solver_ddp_reach_xarm6
 from utils import robot_utils
 from utils import visualizer
 
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 URDF_PATH = os.path.join(ROOT_DIR, "ufactory_xarm6", "xarm6_robot.urdf")
 MJCF_PATH = os.path.join(ROOT_DIR, "ufactory_xarm6", "xarm6_nohand_motor.xml")
 EE_FRAME_NAME = "link6"

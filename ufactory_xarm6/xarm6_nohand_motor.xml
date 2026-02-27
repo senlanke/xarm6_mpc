@@ -40,6 +40,10 @@
     <mesh name="link5_vhacd" file="link5_vhacd.obj"/>
     <mesh name="link6" file="link6.stl"/>
     <mesh name="link6_vhacd" file="link6_vhacd.obj"/>
+    <mesh name="gripper" file="NewEGripper.STL"/>
+
+    <material name="white" rgba="1 1 1 1"/>
+    <material name="gray" rgba="0.753 0.753 0.753 1"/>
   </asset>
 
   <worldbody>
@@ -48,44 +52,49 @@
           quat="0.998963 0 0 0.045497" 
           mass="2.7" 
           diaginertia="0.01 0.01 0.01"/>
-      <geom name="link_base_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.28 0.52 0.92 1" mesh="base"/>
-      <geom name="link_base_collision" type="mesh" rgba="0.28 0.52 0.92 1" mesh="base_vhacd"/>
+      <geom name="link_base_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="base"/>
+      <geom name="link_base_collision" type="mesh" mesh="base_vhacd"/>
       <body name="link1" pos="0 0 0.267">
         <inertial pos="-0.002 0.02692 -0.01332" quat="0.983139 0.180751 -0.00455228 0.0272976" mass="2.16" diaginertia="0.00539487 0.00519906 0.00281397"/>
         <joint name="joint1"  pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-50 50" damping="1" frictionloss="1"/>
-        <geom name="link1_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.85 0.19 0.21 1" mesh="link1"/>
-        <geom name="link1_collision" type="mesh" rgba="0.85 0.19 0.21 1" mesh="link1_vhacd"/>
+        <geom name="link1_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="link1"/>
+        <geom name="link1_collision" type="mesh" mesh="link1_vhacd"/>
         <body name="link2" quat="0.707105 -0.707108 0 0">
           <inertial pos="0.03531 -0.21398 0.03386" quat="0.71118 0.614686 0.139936 -0.311132" mass="1.71" diaginertia="0.017867 0.017867 0.017867"/>
           <joint name="joint2" pos="0 0 0" axis="0 0 1" range="-2.059 2.0944" actuatorfrcrange="-50 50" damping="1" frictionloss="1"/>
-          <geom name="link2_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.95 0.76 0.05 1" mesh="link2"/>
-          <geom name="link2_collision" type="mesh" rgba="0.95 0.76 0.05 1" mesh="link2_vhacd"/>
+          <geom name="link2_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="link2"/>
+          <geom name="link2_collision" type="mesh" mesh="link2_vhacd"/>
           <body name="link3" pos="0.0535 -0.2845 0">
             <inertial pos="0.06781 0.10749 0.01457" quat="0.119516 0.409082 -0.734824 0.527638" mass="1.384" diaginertia="0.004543 0.004543 0.004543"/>
             <joint name="joint3" pos="0 0 0" axis="0 0 1" range="-3.927 0.19198" actuatorfrcrange="-32 32" damping="1" frictionloss="1"/>
-            <geom name="link3_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.28 0.52 0.92 1" mesh="link3"/>
-            <geom name="link3_collision" type="mesh" rgba="0.28 0.52 0.92 1" mesh="link3_vhacd"/>
+            <geom name="link3_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="link3"/>
+            <geom name="link3_collision" type="mesh" mesh="link3_vhacd"/>
             <body name="link4" pos="0.0775 0.3425 0" quat="0.707105 -0.707108 0 0">
               <inertial pos="-0.00021 0.02578 -0.02538" quat="0.994019 0.0752563 -0.00686804 0.0788347" mass="1.115" diaginertia="0.00440091 0.00406855 0.00103407"/>
               <joint name="joint4" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-32 32" damping="1" frictionloss="1"/>
-              <geom name="link4_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.23 0.72 0.32 1" mesh="link4"/>
-              <geom name="link4_collision" type="mesh" rgba="0.23 0.72 0.32 1" mesh="link4_vhacd"/>
+              <geom name="link4_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="link4"/>
+              <geom name="link4_collision" type="mesh" mesh="link4_vhacd"/>
               <body name="link5" quat="0.707105 0.707108 0 0">
                 <inertial pos="0.05428 0.01781 0.00543" quat="-0.0766302 0.578118 -0.269638 0.766291" mass="1.275" diaginertia="0.00289757 0.0023276 0.000951789"/>
                 <joint name="joint5" pos="0 0 0" axis="0 0 1" range="-1.69297 3.14159" actuatorfrcrange="-32 32" damping="1" frictionloss="1"/>
-                <geom name="link5_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.85 0.19 0.21 1" mesh="link5"/>
-                <geom name="link5_collision" type="mesh" rgba="0.85 0.19 0.21 1" mesh="link5_vhacd"/>
+                <geom name="link5_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" mesh="link5"/>
+                <geom name="link5_collision" type="mesh" mesh="link5_vhacd"/>
                 <body name="link6" pos="0.076 0.097 0" quat="0.707105 -0.707108 0 0">
                   <inertial pos="0 0.00064 -0.00952" quat="0 0.707107 0 0.707107" mass="0.1096" diaginertia="7.9715e-05 4.8111e-05 4.5293e-05"/>
                   <joint name="joint6" pos="0 0 0" axis="0 0 1" range="-6.28319 6.28319" actuatorfrcrange="-20 20" damping="1" frictionloss="1"/>
-                  <geom name="link6_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" rgba="0.753 0.753 0.753 1" mesh="link6"/>
-                  <geom name="link6_collision" type="mesh" rgba="0.753 0.753 0.753 1" mesh="link6_vhacd"/>
-                </body>
+                  <geom name="link6_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" material="gray" mesh="link6"/>
+                  <geom name="link6_collision" type="mesh" material="gray" mesh="link6_vhacd"/>
+                  <body name="gripper" pos="0 0 0" quat="1 0 0 0"> 
+                    <!-- <inertial pos="0 0 0" quat="1 0 0 0" mass="0" diaginertia="0.0001 0.0001 0.0001"/> -->
+                    <geom name="gripper_visual" type="mesh" contype="0" conaffinity="0" group="1" density="0" material="gray" mesh="gripper"/>
+                    <geom name="gripper_collision" type="mesh" density="0" material="gray" mesh="gripper"/>
+                  </body>
                 <site name="ee_site" pos="0 0 0.1" />
               </body>
             </body>
           </body>
         </body>
+      </body>
       </body>
       <site name="base_link_site" pos="0 0 0" quat="1 0 0 0" />
     </body>
@@ -101,13 +110,13 @@
     <motor name="joint6_motor" joint="joint6" gear="1"/>
   </actuator> -->
 
-  <actuator>  <!-- 驱动器定义部分 -->
-    <general name="act1" joint="joint1" class="size1"/>  <!-- 通用驱动器：名称act1，驱动joint1，使用size1类属性 -->
-    <general name="act2" joint="joint2" class="size1" ctrlrange="-2.059 2.0944"/>  <!-- 通用驱动器：名称act2，驱动joint2，使用size1类属性，控制范围-2.059到2.0944 -->
-    <general name="act3" joint="joint3" class="size2" ctrlrange="-3.927 0.19198"/>  <!-- 通用驱动器：名称act4，驱动joint4，使用size2类属性，控制范围-0.19198到3.927 -->
-    <general name="act4" joint="joint4" class="size2"/>  <!-- 通用驱动器：名称act5，驱动joint5，使用size2类属性 -->
-    <general name="act5" joint="joint5" class="size3" ctrlrange="-1.69297 3.14159"/>  <!-- 通用驱动器：名称act6，驱动joint6，使用size3类属性，控制范围-1.69297到3.14159 -->
-    <general name="act6" joint="joint6" class="size3"/>  <!-- 通用驱动器：名称act7，驱动joint7，使用size3类属性 -->
+  <actuator>  <!-- 力矩执行器定义：ctrl 直接作为关节力矩输入 -->
+    <motor name="act1" joint="joint1" gear="1" forcelimited="true" forcerange="-50 50"/>
+    <motor name="act2" joint="joint2" gear="1" forcelimited="true" forcerange="-50 50"/>
+    <motor name="act3" joint="joint3" gear="1" forcelimited="true" forcerange="-30 30"/>
+    <motor name="act4" joint="joint4" gear="1" forcelimited="true" forcerange="-30 30"/>
+    <motor name="act5" joint="joint5" gear="1" forcelimited="true" forcerange="-20 20"/>
+    <motor name="act6" joint="joint6" gear="1" forcelimited="true" forcerange="-20 20"/>
   </actuator>
 
   <!-- <actuator> 
@@ -126,12 +135,13 @@
     <exclude body1="link3" body2="link4" />
     <exclude body1="link4" body2="link5" />
     <exclude body1="link5" body2="link6" />
+    <exclude body1="link6" body2="gripper" />
   </contact>
   
   <!-- <option gravity="0 0 0"/> -->
 
   <keyframe>
-    <key name="home" qpos="0 0 0 0 0 0 " />
+    <key name="home" qpos="0.100001 -0.567064 -0.539810 0.107489 0.404987 0.090729" />
   </keyframe>
 
   <sensor>
@@ -146,5 +156,25 @@
     <frameangvel name="ee_site_angvel" objtype="site" objname="ee_site" />
     <velocimeter name="ee_site_vel" site="ee_site" />
   </sensor>
+
+  <statistic center="0.2 0 0.4" extent=".65"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="150" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+  </worldbody>
 
 </mujoco>
