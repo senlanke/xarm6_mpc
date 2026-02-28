@@ -1,0 +1,4 @@
+# Compatibility filename (kept for historical usage).
+# Canonical dependency file is requirements.txt.
+-r requirements.txt
+

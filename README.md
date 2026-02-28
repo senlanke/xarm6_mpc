@@ -16,6 +16,19 @@ This repository contains simulation and example controllers for xArm robots in M
 
 ## Recent changes
 
+### 0) This update (2026-02-28)
+- Added `RenderNmpcRunner` C++ class and pybind export:
+  - `cpp_backend/native/src/render_nmpc_runner.cpp`
+  - `cpp_backend/native/src/nmpc_native/render_nmpc_runner.hpp`
+  - `cpp_backend/native/src/module_bindings.cpp`
+- `example/reach_mpc_xarm6_nmpc_cpp.py` now uses C++ `step()` in render mode:
+  - Replan scheduling + control + marker submission are done in one C++ call.
+- Improved native build ergonomics:
+  - `cpp_backend/native/build.sh` now supports Ninja/ccache auto-detection and local `CCACHE_DIR`.
+  - Auto-clean build directory when generator changes.
+- Added `requestment.txt` as compatibility alias to `requirements.txt`.
+- Added viewer-side explicit GLFW init failures in `mujoco_viewer.py` to avoid silent hangs.
+
 ### 1) Torque actuator setup
 - Switched actuator definitions to torque motors (`<motor ...>`) in:
   - `ufactory_xarm6/xarm6_nohand_motor.xml`
@@ -47,9 +60,11 @@ This repository contains simulation and example controllers for xArm robots in M
 - Added `RenderTools` (pybind11) in the same module:
   - C++ marker drawing helpers (`add_marker`, `draw_trajectory`, `draw_ee_frame`).
   - C++ batch trajectory forward-kinematics (`batch_trajectory_fk`).
+- Added `RenderNmpcRunner` (pybind11):
+  - Moves render-mode replan scheduling and per-step control/marker dispatch into a single C++ `step()` call.
 - `example/reach_mpc_xarm6_nmpc_cpp.py` render path now uses this C++ controller:
-  - Python keeps DDP replan + viewer render.
-  - Per-step control math, render marker helpers, and trajectory FK preview are offloaded to C++.
+  - Python keeps MuJoCo stepping + viewer render.
+  - DDP replan scheduling, per-step control math, marker submission, and trajectory FK preview are offloaded to C++.
 
 ### 5) One-click compile for all C++ targets
 - Added top-level script: `build_cpp_all.sh`
@@ -76,6 +91,12 @@ Install required packages with:
 pip install -r requirements.txt
 ```
 
+Compatibility install command (same dependency set):
+
+```bash
+pip install -r requestment.txt
+```
+
 ## Environment
 
 Use `ke` conda environment:
@@ -100,12 +121,25 @@ cd /path/to/xarm6_mpc
 LOW_MEM=1 PYTHON_BIN=/path/to/python/bin/python bash build_cpp_all.sh
 ```
 
+Faster rebuild (if available):
+
+```bash
+cd /path/to/xarm6_mpc
+USE_NINJA=1 USE_CCACHE=1 PYTHON_BIN=/path/to/python/bin/python bash build_cpp_all.sh
+```
+
+Build knobs:
+- `BUILD_JOBS=<N>`: override parallel jobs.
+- `LOW_MEM=1`: force low-memory serial build.
+- `USE_NINJA=0`: disable Ninja auto-selection.
+- `USE_CCACHE=0`: disable ccache launcher.
+
 This will compile and place the modules at:
 - `cpp_backend/nmpc_native*.so`
 
 ## Running Examples
 
-### Canonical entrypoint (recommended)
+### Mainline
 ```bash
 cd /path/to/xarm6_mpc/example
 conda activate ke
@@ -113,14 +147,25 @@ python reach_mpc_xarm6_nmpc_cpp.py --backend render
 python reach_mpc_xarm6_nmpc_cpp.py --backend native
 ```
 
-### Compatibility alias (optional)
+If render blocks at viewer creation, first verify display access:
+
 ```bash
-cd /path/to/xarm6_mpc/example
-conda activate ke
+echo $DISPLAY
+python - <<'PY'
+import glfw
+print("glfw.init() =", glfw.init())
+if glfw.init():
+    print("primary_monitor =", glfw.get_primary_monitor())
+    glfw.terminate()
+PY
+```
+
+### Compatibility
+```bash
 python reach_mpc_xarm6_nmpc_native.py
 ```
 
-Legacy example scripts are archived under `legacy/example/` and wrapper scripts in `example/` forward to them.
+Compatibility scripts forward to `legacy/example/` and emit deprecation warnings.
 
 ## Repository Structure
 
@@ -146,6 +191,7 @@ xarm6_mpc/
   In that case use:
   - `bash build_cpp_all.sh`
 - Native C++ loop script runs without the custom Python viewer; it prints run statistics.
+- Every functional update should be recorded in this README under `Recent changes`.
 
 ## License
 

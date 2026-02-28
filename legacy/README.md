@@ -10,6 +10,7 @@ This directory stores legacy Python implementations kept for compatibility.
 - `legacy/cpp_backend/reach_ddp_xarm6_cpp.py`
 - `legacy/example/reach_mpc_xarm6_nmpc.py`
 - `legacy/example/reach_mpc.py`
+- `legacy/example/reach_mpc_xarm6_nmpc_native.py`
 - `legacy/example/bullet_ic.py`
 - `legacy/example/finger.py`
 - `legacy/example/ic_test.py`

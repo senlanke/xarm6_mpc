@@ -18,5 +18,6 @@ The following scripts are compatibility wrappers that forward to archived legacy
 - `shadow_test.py`
 - `ur_test.py`
 - `xarm_mujoco.py`
+- `reach_mpc_xarm6_nmpc_native.py`
 
-`reach_mpc_xarm6_nmpc_native.py` is a compatibility alias to `reach_mpc_xarm6_nmpc_cpp.py --backend native`.
+Wrapper implementation is centralized in `_legacy_redirect.py`.

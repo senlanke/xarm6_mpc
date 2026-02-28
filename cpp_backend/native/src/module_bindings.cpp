@@ -2,6 +2,7 @@
 #include <pybind11/stl.h>
 
 #include "nmpc_native/ddp_reach_solver.hpp"
+#include "nmpc_native/render_nmpc_runner.hpp"
 #include "nmpc_native/render_step_controller.hpp"
 #include "nmpc_native/render_tools.hpp"
 #include "nmpc_native/run_nmpc.hpp"
@@ -69,6 +70,31 @@ PYBIND11_MODULE(nmpc_native, m) {
       .def("draw_ee_frame", &nmpc_native::RenderTools::draw_ee_frame,
            py::arg("viewer"), py::arg("q"), py::arg("size") = 0.08)
       .def_property_readonly("nq", &nmpc_native::RenderTools::nq);
+
+  py::class_<nmpc_native::RenderNmpcRunner>(m, "RenderNmpcRunner")
+      .def(py::init<const std::string&, const std::string&, int, double, int,
+                    int, double, double, double, double, double, double>(),
+           py::arg("urdf_path"), py::arg("ee_frame_name") = "link6",
+           py::arg("T") = 40, py::arg("DT") = 0.01, py::arg("H") = 2,
+           py::arg("K") = 6, py::arg("P") = 1000.0, py::arg("D") = 50.0,
+           py::arg("w_goal_running") = 1e4,
+           py::arg("w_goal_terminal") = 1e7, py::arg("w_state") = 1e-1,
+           py::arg("w_ctrl") = 1e-5)
+      .def("reset", &nmpc_native::RenderNmpcRunner::reset)
+      .def("step", &nmpc_native::RenderNmpcRunner::step, py::arg("viewer"),
+           py::arg("q"), py::arg("v"), py::arg("x_goal"),
+           py::arg("max_iter") = 50, py::arg("force_replan") = false,
+           py::arg("traj_size") = 0.02, py::arg("ee_frame_size") = 0.08,
+           py::arg("goal_marker_size") = 0.012)
+      .def("ee_position", &nmpc_native::RenderNmpcRunner::ee_position,
+           py::arg("q"))
+      .def_property_readonly("nq", &nmpc_native::RenderNmpcRunner::nq)
+      .def_property_readonly("nv", &nmpc_native::RenderNmpcRunner::nv)
+      .def_property_readonly("nu", &nmpc_native::RenderNmpcRunner::nu)
+      .def_property_readonly("step_index",
+                             &nmpc_native::RenderNmpcRunner::step_index)
+      .def_property_readonly("plan_period",
+                             &nmpc_native::RenderNmpcRunner::plan_period);
 
   m.def("run_nmpc", &nmpc_native::run_nmpc, py::arg("urdf_path"),
         py::arg("mjcf_path"), py::arg("ee_frame_name"), py::arg("x_goal"),

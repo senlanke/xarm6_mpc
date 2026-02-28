@@ -57,6 +57,7 @@ def run_render(sim_time: float, max_iter: int):
             "PYTHON_BIN=/home/kesl/miniconda3/envs/ke/bin/python bash /home/kesl/ke/xarm6_mpc/build_cpp_all.sh"
         ) from exc
 
+    print("[init] loading MuJoCo model...", flush=True)
     mj_model = mujoco.MjModel.from_xml_path(MJCF_PATH)
     mj_data = mujoco.MjData(mj_model)
     if mj_model.nkey > 0:
@@ -67,68 +68,70 @@ def run_render(sim_time: float, max_iter: int):
     if mj_model.nu != mj_model.nv:
         raise RuntimeError(f"Actuator dimension mismatch: nu={mj_model.nu}, expected {mj_model.nv}")
 
-    viewer = mujoco_viewer.MujocoViewer(mj_model, mj_data)
+    print("[init] creating viewer...", flush=True)
+    viewer = mujoco_viewer.MujocoViewer(
+        mj_model,
+        mj_data,
+        width=1280,
+        height=720,
+    )
+    print("[init] viewer ready.", flush=True)
 
-    solver = nmpc_native.DDPReachSolver(
+    print("[init] creating RenderNmpcRunner...", flush=True)
+    runner = nmpc_native.RenderNmpcRunner(
         urdf_path=URDF_PATH,
         ee_frame_name=EE_FRAME_NAME,
         T=T,
         DT=DT,
-    )
-    controller = nmpc_native.RenderStepController(
-        urdf_path=URDF_PATH,
+        H=H,
         K=K,
         P=P,
         D=D,
     )
-    render_tools = nmpc_native.RenderTools(
-        urdf_path=URDF_PATH,
-        ee_frame_name=EE_FRAME_NAME,
-    )
+    print("[init] runner ready.", flush=True)
 
     nq = mj_model.nq
     nv = mj_model.nv
-    i_plan = 0
-    xs = None
 
-    plan_period = H * K
-
-    print(f"Running xArm6 NMPC (render mode, C++ backend) with goal {X_GOAL}.")
-    print(f"Model dims: nq={mj_model.nq}, nv={mj_model.nv}, nu={mj_model.nu}")
+    print(f"Running xArm6 NMPC (render mode, C++ backend) with goal {X_GOAL}.", flush=True)
+    print(f"Model dims: nq={mj_model.nq}, nv={mj_model.nv}, nu={mj_model.nu}", flush=True)
+    # Render one frame first so window appears even if first replan is slow.
+    viewer.render()
 
     while mj_data.time < sim_time:
         q = mj_data.qpos[:nq]
         v = mj_data.qvel[:nv]
-        x = np.concatenate([q, v])
+        will_replan = (runner.step_index % runner.plan_period) == 0
+        if will_replan:
+            print(f"[t={mj_data.time:.3f}] planning...", flush=True)
+        step_out = runner.step(
+            viewer=viewer,
+            q=q,
+            v=v,
+            x_goal=X_GOAL,
+            max_iter=max_iter,
+            force_replan=False,
+            traj_size=0.02,
+            ee_frame_size=0.08,
+            goal_marker_size=0.012,
+        )
 
-        if xs is None or i_plan % plan_period == 0:
-            plan = solver.solve(x, X_GOAL, max_iter=max_iter)
-            xs = np.asarray(plan["xs"], dtype=np.float64)
-            us = np.asarray(plan["us"], dtype=np.float64)
-            solved = bool(plan["solved"])
-            solve_time = float(plan["solve_time"])
+        if bool(step_out["replanned"]):
+            solved = bool(step_out["solved"])
+            solve_time = float(step_out["solve_time"])
             print(
                 f"[t={mj_data.time:.3f}] DDP solved={solved}, "
                 f"iters={max_iter}, solve_time={solve_time:.3f}s"
             )
 
-            controller.reset_plan(xs)
-            xee = render_tools.batch_trajectory_fk(xs)
-            render_tools.draw_trajectory(viewer, xee, (0.0, 0.0, 1.0, 1.0), 0.02)
-            i_plan = 0
-
-        tau = controller.compute_tau(q, v)
+        tau = np.asarray(step_out["tau"], dtype=np.float64)
 
         mj_data.ctrl = tau
         mujoco.mj_step(mj_model, mj_data)
 
-        render_tools.draw_ee_frame(viewer, mj_data.qpos, size=0.08)
-        render_tools.add_marker(viewer, X_GOAL, size=0.012, color=(1.0, 0.0, 0.0, 1.0))
         viewer.render()
 
-        i_plan += 1
-
-    final_ee = np.asarray(render_tools.ee_position(mj_data.qpos))
+    final_ee = np.asarray(runner.ee_position(mj_data.qpos), dtype=np.float64)
     final_link6_err = np.linalg.norm(final_ee - X_GOAL)
     print(f"final_link6_error={final_link6_err:.6f}m")
     if ee_site_id >= 0:

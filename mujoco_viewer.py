@@ -3,6 +3,7 @@ import glfw
 import numpy as np
 import time
 import pathlib
+import os
 import yaml
 try:
     from .callbacks import Callbacks
@@ -35,15 +36,38 @@ class MujocoViewer(Callbacks):
 
         self.CONFIG_PATH = pathlib.Path.joinpath(
             pathlib.Path.home(), ".config/mujoco_viewer/config.yaml")
+        debug_viewer = os.environ.get("MUJOCO_VIEWER_DEBUG", "") not in ("", "0", "false", "False")
+
+        def _dbg(msg):
+            if debug_viewer:
+                print(f"[viewer] {msg}", flush=True)
 
         # glfw init
-        glfw.init()
+        _dbg("glfw.init()")
+        if not glfw.init():
+            display = os.environ.get("DISPLAY", "")
+            raise RuntimeError(
+                f"GLFW init failed. DISPLAY={display!r}. "
+                "Check X11/Wayland availability and permissions."
+            )
+        _dbg("glfw.init() ok")
+
+        _dbg("query primary monitor")
+        monitor = glfw.get_primary_monitor()
+        if monitor is None and (width is None or height is None):
+            glfw.terminate()
+            display = os.environ.get("DISPLAY", "")
+            raise RuntimeError(
+                f"GLFW primary monitor not available on DISPLAY={display!r}. "
+                "Set width/height explicitly or fix display access."
+            )
+        _dbg("primary monitor ok")
 
         if not width:
-            width, _ = glfw.get_video_mode(glfw.get_primary_monitor()).size
+            width, _ = glfw.get_video_mode(monitor).size
 
         if not height:
-            _, height = glfw.get_video_mode(glfw.get_primary_monitor()).size
+            _, height = glfw.get_video_mode(monitor).size
 
         if self.render_mode == 'offscreen':
             glfw.window_hint(glfw.VISIBLE, 0)
@@ -52,6 +76,13 @@ class MujocoViewer(Callbacks):
 
         self.window = glfw.create_window(
             width, height, title, None, None)
+        if self.window is None:
+            glfw.terminate()
+            display = os.environ.get("DISPLAY", "")
+            raise RuntimeError(
+                f"GLFW create_window failed on DISPLAY={display!r}."
+            )
+        _dbg("create_window ok")
         glfw.make_context_current(self.window)
         glfw.swap_interval(1)
 

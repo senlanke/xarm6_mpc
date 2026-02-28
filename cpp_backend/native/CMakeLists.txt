@@ -4,6 +4,8 @@ project(xarm6_nmpc_native LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+option(NMPC_USE_SYSTEM_INCLUDE "Treat third-party include dirs as SYSTEM" ON)
+option(NMPC_SUPPRESS_3P_WARNINGS "Suppress noisy third-party template warnings" ON)
 
 if(NOT DEFINED Python3_EXECUTABLE)
   set(Python3_EXECUTABLE python3)
@@ -46,19 +48,40 @@ pybind11_add_module(
   MODULE
     src/module_bindings.cpp
     src/ddp_reach_solver.cpp
+    src/render_nmpc_runner.cpp
     src/render_step_controller.cpp
     src/render_tools.cpp
     src/run_nmpc.cpp
 )
 target_link_options(nmpc_native PRIVATE "-Wl,--disable-new-dtags")
 
-target_include_directories(
-  nmpc_native
-  PRIVATE
-    "${CMEEL_INCLUDE_DIR}"
-    "${EIGEN3_INCLUDE_DIR}"
-    "${MUJOCO_INCLUDE_DIR}"
-)
+if(NMPC_USE_SYSTEM_INCLUDE)
+  target_include_directories(
+    nmpc_native
+    SYSTEM
+    PRIVATE
+      "${CMEEL_INCLUDE_DIR}"
+      "${EIGEN3_INCLUDE_DIR}"
+      "${MUJOCO_INCLUDE_DIR}"
+  )
+else()
+  target_include_directories(
+    nmpc_native
+    PRIVATE
+      "${CMEEL_INCLUDE_DIR}"
+      "${EIGEN3_INCLUDE_DIR}"
+      "${MUJOCO_INCLUDE_DIR}"
+  )
+endif()
+
+if(NMPC_SUPPRESS_3P_WARNINGS AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(
+    nmpc_native
+    PRIVATE
+      -Wno-ignored-attributes
+      -Wno-return-type
+  )
+endif()
 
 target_link_directories(nmpc_native PRIVATE "${CMEEL_LIB_DIR}")
 
