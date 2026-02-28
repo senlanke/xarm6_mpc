@@ -1,3 +1,0 @@
-/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_o0/CMakeFiles/rebuild_cache.dir
-/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_o0/CMakeFiles/edit_cache.dir
-/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_o0/CMakeFiles/nmpc_native.dir

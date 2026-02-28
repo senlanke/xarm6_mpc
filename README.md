@@ -57,6 +57,17 @@ This repository contains simulation and example controllers for xArm robots in M
 - Current C++ build targets included in one-click build:
   - `cpp_backend/native` (`nmpc_native` pybind11 module, includes `run_nmpc`, `RenderStepController`, and `RenderTools`)
 
+### 6) Architecture cleanup (legacy archive)
+- Archived historical Python DDP implementation into `legacy/`:
+  - `legacy/mpc/solver/reach_ddp.py`
+  - `legacy/mpc/solver/reach_ddp_xarm6.py`
+  - `legacy/mpc/utils/action.py`
+  - `legacy/cpp_backend/reach_ddp_xarm6_cpp.py`
+- Original import paths are preserved by compatibility wrappers under:
+  - `mpc/solver/`
+  - `mpc/utils/`
+  - `cpp_backend/`
+
 ## Dependencies
 
 Install required packages with:
@@ -94,19 +105,22 @@ This will compile and place the modules at:
 
 ## Running Examples
 
-### A) Native C++ NMPC main loop (recommended)
+### Canonical entrypoint (recommended)
 ```bash
 cd /path/to/xarm6_mpc/example
 conda activate ke
-python reach_mpc_xarm6_nmpc_cpp.py
+python reach_mpc_xarm6_nmpc_cpp.py --backend render
+python reach_mpc_xarm6_nmpc_cpp.py --backend native
 ```
 
-### B) Legacy native entry (same backend)
+### Compatibility alias (optional)
 ```bash
 cd /path/to/xarm6_mpc/example
 conda activate ke
 python reach_mpc_xarm6_nmpc_native.py
 ```
+
+Legacy example scripts are archived under `legacy/example/` and wrapper scripts in `example/` forward to them.
 
 ## Repository Structure
 
@@ -118,6 +132,7 @@ xarm6_mpc/
 ├── callbacks.py
 ├── cpp_backend/          # C++ implementations and bindings
 ├── example/              # Example scripts
+├── legacy/               # Archived legacy Python implementations
 ├── mpc/                  # MPC implementations
 ├── mujoco_viewer.py      # Custom MuJoCo viewer
 ├── ufactory_xarm6/       # Robot model files

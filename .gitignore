@@ -102,6 +102,18 @@ data_*.csv
 *nmpc_native*.so
 *reach_ddp_xarm6_cpp*.so
 
+# CMake / native build artifacts
+cpp_backend/native/build/
+cpp_backend/native/build_*/
+**/CMakeFiles/
+**/CMakeCache.txt
+**/cmake_install.cmake
+**/Makefile
+**/compile_commands.json
+
+# Windows ADS artifacts from copied model assets
+*.Zone.Identifier
+
 # Local configs
 config.local
 *.local
