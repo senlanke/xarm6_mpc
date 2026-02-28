@@ -1,5 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o"
+  "CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o"
+  "CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o"
+  "CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o"
+  "CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o"
+  "CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o"
   "nmpc_native.cpython-310-x86_64-linux-gnu.so"
   "nmpc_native.pdb"
 )

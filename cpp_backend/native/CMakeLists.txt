@@ -41,7 +41,15 @@ if(NOT EXISTS "${MUJOCO_LIB}")
   message(FATAL_ERROR "MuJoCo shared library not found: ${MUJOCO_LIB}")
 endif()
 
-pybind11_add_module(nmpc_native MODULE src/nmpc_native.cpp)
+pybind11_add_module(
+  nmpc_native
+  MODULE
+    src/module_bindings.cpp
+    src/ddp_reach_solver.cpp
+    src/render_step_controller.cpp
+    src/render_tools.cpp
+    src/run_nmpc.cpp
+)
 target_link_options(nmpc_native PRIVATE "-Wl,--disable-new-dtags")
 
 target_include_directories(

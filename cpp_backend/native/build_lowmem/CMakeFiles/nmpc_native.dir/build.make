@@ -57,33 +57,92 @@ include CMakeFiles/nmpc_native.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/nmpc_native.dir/flags.make
 
-CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
-CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o: ../src/nmpc_native.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/nmpc_native.cpp
+CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
+CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o: ../src/module_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/module_bindings.cpp
 
-CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/nmpc_native.cpp > CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.i
+CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/module_bindings.cpp > CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.i
 
-CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/nmpc_native.cpp -o CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.s
+CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/module_bindings.cpp -o CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.s
+
+CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
+CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o: ../src/ddp_reach_solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/ddp_reach_solver.cpp
+
+CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/ddp_reach_solver.cpp > CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.i
+
+CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/ddp_reach_solver.cpp -o CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.s
+
+CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
+CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o: ../src/render_step_controller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_step_controller.cpp
+
+CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_step_controller.cpp > CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.i
+
+CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_step_controller.cpp -o CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.s
+
+CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
+CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o: ../src/render_tools.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_tools.cpp
+
+CMakeFiles/nmpc_native.dir/src/render_tools.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/render_tools.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_tools.cpp > CMakeFiles/nmpc_native.dir/src/render_tools.cpp.i
+
+CMakeFiles/nmpc_native.dir/src/render_tools.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/render_tools.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/render_tools.cpp -o CMakeFiles/nmpc_native.dir/src/render_tools.cpp.s
+
+CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o: CMakeFiles/nmpc_native.dir/flags.make
+CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o: ../src/run_nmpc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o -c /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/run_nmpc.cpp
+
+CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/run_nmpc.cpp > CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.i
+
+CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kesl/ke/xarm6_mpc/cpp_backend/native/src/run_nmpc.cpp -o CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.s
 
 # Object files for target nmpc_native
 nmpc_native_OBJECTS = \
-"CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o"
+"CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o" \
+"CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o" \
+"CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o" \
+"CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o" \
+"CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o"
 
 # External object files for target nmpc_native
 nmpc_native_EXTERNAL_OBJECTS =
 
-nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/nmpc_native.cpp.o
+nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/module_bindings.cpp.o
+nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/ddp_reach_solver.cpp.o
+nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/render_step_controller.cpp.o
+nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/render_tools.cpp.o
+nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/src/run_nmpc.cpp.o
 nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/build.make
 nmpc_native.cpython-310-x86_64-linux-gnu.so: /home/kesl/miniconda3/envs/ke/lib/python3.10/site-packages/mujoco/libmujoco.so.3.5.0
 nmpc_native.cpython-310-x86_64-linux-gnu.so: CMakeFiles/nmpc_native.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module nmpc_native.cpython-310-x86_64-linux-gnu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared module nmpc_native.cpython-310-x86_64-linux-gnu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/nmpc_native.dir/link.txt --verbose=$(VERBOSE)
-	/usr/bin/strip /home/kesl/ke/xarm6_mpc/cpp_backend/native/build_lowmem/nmpc_native.cpython-310-x86_64-linux-gnu.so
 
 # Rule to build all files generated by this target.
 CMakeFiles/nmpc_native.dir/build: nmpc_native.cpython-310-x86_64-linux-gnu.so

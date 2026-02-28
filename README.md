@@ -30,13 +30,18 @@ This repository contains simulation and example controllers for xArm robots in M
   - Same control flow as original script, but solver backend switched to the above.
 
 ### 3) Native C++ NMPC main loop
-- Added `cpp_backend/native/src/nmpc_native.cpp`:
-  - Main NMPC loop moved to C++ (state read, replan, PD+gravity torque, `mj_step`).
+- Added native module sources:
+  - `cpp_backend/native/src/run_nmpc.cpp` (main NMPC loop)
+  - `cpp_backend/native/src/ddp_reach_solver.cpp` (DDP wrapper)
+  - `cpp_backend/native/src/module_bindings.cpp` (pybind11 bindings)
 - Added `example/reach_mpc_xarm6_nmpc_native.py`:
   - Python entry for calling native module `nmpc_native`.
 
 ### 4) Render-mode control stepping moved to C++ extension
-- Extended `cpp_backend/native/src/nmpc_native.cpp` with `RenderStepController` (pybind11):
+- Added render-side native sources:
+  - `cpp_backend/native/src/render_step_controller.cpp`
+  - `cpp_backend/native/src/render_tools.cpp`
+- `RenderStepController` (pybind11):
   - Handles per-step phase index (`i/K`), desired state picking from `xs`,
     and PD+gravity torque computation in C++.
 - Added `RenderTools` (pybind11) in the same module:
@@ -75,6 +80,13 @@ From project root:
 ```bash
 cd /path/to/xarm6_mpc
 PYTHON_BIN=/path/to/python/bin/python bash build_cpp_all.sh
+```
+
+Low-memory mode (for RAM-limited machines):
+
+```bash
+cd /path/to/xarm6_mpc
+LOW_MEM=1 PYTHON_BIN=/path/to/python/bin/python bash build_cpp_all.sh
 ```
 
 This will compile and place the modules at:

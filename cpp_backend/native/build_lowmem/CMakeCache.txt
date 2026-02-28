@@ -22,7 +22,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=MinSizeRel
+CMAKE_BUILD_TYPE:STRING=Debug
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -39,7 +39,7 @@ CMAKE_CXX_COMPILER_AR:FILEPATH=/usr/bin/gcc-ar-9
 CMAKE_CXX_COMPILER_RANLIB:FILEPATH=/usr/bin/gcc-ranlib-9
 
 //Flags used by the CXX compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=
+CMAKE_CXX_FLAGS:STRING=-O0 -g0 -fno-var-tracking -fno-var-tracking-assignments -fno-ipa-cp-clone
 
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=-g
@@ -76,6 +76,9 @@ CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 
 //Install path prefix, prepended onto install directories.
 CMAKE_INSTALL_PREFIX:PATH=/usr/local
+
+//No help, variable specified on the command line.
+CMAKE_INTERPROCEDURAL_OPTIMIZATION:UNINITIALIZED=OFF
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=/usr/bin/ld
@@ -193,8 +196,11 @@ PYBIND11_PYTHON_VERSION:STRING=
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/home/kesl/miniconda3/envs/ke/bin/python
 
-//Path to a library.
-PYTHON_LIBRARY:FILEPATH=/home/kesl/miniconda3/envs/ke/lib/libpython3.10.so
+//No help, variable specified on the command line.
+PYTHON_INCLUDE_DIR:UNINITIALIZED=/home/kesl/miniconda3/envs/ke/include/python3.10
+
+//No help, variable specified on the command line.
+PYTHON_LIBRARY:UNINITIALIZED=/home/kesl/miniconda3/envs/ke/lib/libpython3.10.so
 
 //No help, variable specified on the command line.
 Python3_EXECUTABLE:UNINITIALIZED=/home/kesl/miniconda3/envs/ke/bin/python
@@ -348,6 +354,8 @@ FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/kesl/miniconda3/envs/k
 HAS_FLTO_AUTO:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PYTHON_INCLUDE_DIR
+PYTHON_INCLUDE_DIR-ADVANCED:INTERNAL=1
 PYTHON_INCLUDE_DIRS:INTERNAL=/home/kesl/miniconda3/envs/ke/include/python3.10
 PYTHON_IS_DEBUG:INTERNAL=0
 PYTHON_LIBRARIES:INTERNAL=/home/kesl/miniconda3/envs/ke/lib/libpython3.10.so
