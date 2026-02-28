@@ -186,6 +186,14 @@ class MujocoViewer(Callbacks):
     def add_marker(self, **marker_params):
         self._markers.append(marker_params)
 
+    def add_markers(self, markers):
+        if markers is None:
+            return
+        if isinstance(markers, dict):
+            self._markers.append(markers)
+            return
+        self._markers.extend(markers)
+
     def _add_marker_to_scene(self, marker):
         if self.scn.ngeom >= self.scn.maxgeom:
             raise RuntimeError(

@@ -39,15 +39,18 @@ This repository contains simulation and example controllers for xArm robots in M
 - Extended `cpp_backend/native/src/nmpc_native.cpp` with `RenderStepController` (pybind11):
   - Handles per-step phase index (`i/K`), desired state picking from `xs`,
     and PD+gravity torque computation in C++.
+- Added `RenderTools` (pybind11) in the same module:
+  - C++ marker drawing helpers (`add_marker`, `draw_trajectory`, `draw_ee_frame`).
+  - C++ batch trajectory forward-kinematics (`batch_trajectory_fk`).
 - `example/reach_mpc_xarm6_nmpc_cpp.py` render path now uses this C++ controller:
   - Python keeps DDP replan + viewer render.
-  - Per-step control math is offloaded to C++.
+  - Per-step control math, render marker helpers, and trajectory FK preview are offloaded to C++.
 
 ### 5) One-click compile for all C++ targets
 - Added top-level script: `build_cpp_all.sh`
 - Added native build script: `cpp_backend/native/build.sh`
 - Current C++ build targets included in one-click build:
-  - `cpp_backend/native` (`nmpc_native` pybind11 module, includes `run_nmpc` and `RenderStepController`)
+  - `cpp_backend/native` (`nmpc_native` pybind11 module, includes `run_nmpc`, `RenderStepController`, and `RenderTools`)
 
 ## Dependencies
 
